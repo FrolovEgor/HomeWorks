@@ -80,6 +80,11 @@ namespace Homework_01
         public List<Worker> Workers { get; set; }
 
         /// <summary>
+        /// Массив возможных имен работников
+        /// </summary>
+        public string[] Names = firstNames;
+
+        /// <summary>
         /// Конструктор, заполняющий базу данных Workers
         /// </summary>
         /// <param name="Count">Количество сотрудников, которых нужно создать</param>
@@ -153,7 +158,7 @@ namespace Homework_01
         /// <summary>
         /// Метод, увольняющий работников до тех пор, пока их количество не будет удовлетворять желаемому
         /// </summary>
-        /// <param name="NeededCount"></param>
+        /// <param name="NeededCount">Количество работников, которые должны остаться</param>
         public void DeleteWorkersByCount(int NeededCount)
         {
             while (this.Workers.Count>NeededCount)
