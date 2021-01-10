@@ -150,5 +150,18 @@ namespace Homework_01
         {
             this.Workers.RemoveAll(e => e.FirstName == CurrentName);//Удаление работников чьё имя Удовлетворяет выбранному CurrentName
         }
+        /// <summary>
+        /// Метод, увольняющий работников до тех пор, пока их количество не будет удовлетворять желаемому
+        /// </summary>
+        /// <param name="NeededCount"></param>
+        public void DeleteWorkersByCount(int NeededCount)
+        {
+            while (this.Workers.Count>NeededCount)
+            {
+                int i = 0;
+                this.Workers.RemoveAt(i);
+                i += 1;
+            }
+        }
     }
 }
