@@ -13,13 +13,7 @@ namespace HomeWork_2
     {
         private List<Student> Notes;
 
-        private void PrintTop()
-        {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"\n{"Имя",15}{"Фамилия",15}{"Возраст",15}{"Рост",15}{"Математика",15}{"Физика",15}{"Язык",15}{"Средний балл",15}");
-            Console.ForegroundColor = ConsoleColor.White;
-        }
-
+       
         public NoteBook()
         {
             Notes = new List<Student>();
@@ -29,27 +23,62 @@ namespace HomeWork_2
         /// Метод для создания новой заметки
         /// </summary>
         /// <returns>Строковое значение об успешном/неуспешном создании новой записи</returns>
-        public string NewNote()
+        public void NewNote()
         {
             Console.Clear();
 
             try
             {
                 Notes.Add(new Student());
+                Console.WriteLine("\nЗапись успешно добавлена!");
             }
 
             catch
             {
-                return "\nЗапись не добавлена, вы ошиблись!(";
+               Console.WriteLine ("\nЗапись не добавлена, вы ошиблись!(");
             }
-
-            return "\nЗапись успешно добавлена!";
         }
         
         public string GetNotesCount()
         {
             return Notes.Count.ToString();
         }
+
+
+        public void PrintNotes(int Width, int Height, int Number)
+        {
+            Console.Clear();
+            int horizontalPrintPosition = (Width - 87) / 2;
+            int verticalPrintPosition = (Height - Notes.Count - 1) / 2;
+            if (horizontalPrintPosition < 0)
+            {
+                horizontalPrintPosition = 0;
+            }
+
+            if (verticalPrintPosition < 0)
+            {
+                verticalPrintPosition = 0;
+            }
+            Console.SetCursorPosition(horizontalPrintPosition, verticalPrintPosition);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(Notes[0].PrintTop());
+            Console.ForegroundColor = ConsoleColor.White;
+
+            if (Number < 0)
+            {
+
+                for (int i = 0; i < Notes.Count; i++)
+                {
+                    Console.SetCursorPosition(horizontalPrintPosition, verticalPrintPosition + i + 1);
+                    Console.WriteLine(Notes[i].ToString());
+                }
+            }
+            else
+            {
+                Console.WriteLine(Notes[Number].ToString());
+            }
+        }
+
 
 
         /// <summary>
@@ -63,34 +92,33 @@ namespace HomeWork_2
             {
                 Console.Write("Введите номер записи для отображения: ");
                 int noteNumber = int.Parse(Console.ReadLine()) - 1;
-                Console.Write("\n Введите способ вывода(1 - без форматирования, 2 - с форматированием, 3 - С интерполяцией: ");
+                Console.Write("\n Введите способ вывода(1 - без форматирования, 2 - с форматированием, 3 - С интерполяцией): ");
                 int typeOfPrint = int.Parse(Console.ReadLine());
 
                 switch (typeOfPrint)
                 {
                     case 1:
-                        Console.WriteLine("{0}\n", Notes[noteNumber].firstName);
-                        Console.WriteLine("{0}\n", Notes[noteNumber].lastName);
-                        Console.WriteLine("{0}\n", Notes[noteNumber].age);
-                        Console.WriteLine("{0}\n", Notes[noteNumber].heiht);
-                        Console.WriteLine("{0}\n", Notes[noteNumber].mathsScore);
-                        Console.WriteLine("{0}\n", Notes[noteNumber].physicsScore);
-                        Console.WriteLine("{0}\n", Notes[noteNumber].langScore);
-                        Console.WriteLine("{0}\n", Notes[noteNumber].averageValue);
+                        Console.Write("Имя: {0}\n", Notes[noteNumber].firstName);
+                        Console.Write("Фамилия: {0}\n", Notes[noteNumber].lastName);
+                        Console.Write("Возраст: {0}\n", Notes[noteNumber].age);
+                        Console.Write("Рост: {0}\n", Notes[noteNumber].heiht);
+                        Console.Write("Баллы за математику:{0}\n", Notes[noteNumber].mathsScore);
+                        Console.Write("Баллы за физику: {0}\n", Notes[noteNumber].physicsScore);
+                        Console.Write("Баллы за язык: {0}\n", Notes[noteNumber].langScore);
+                        Console.Write("Средний балл: {0}\n", Notes[noteNumber].averageValue);
                         break;
                     case 2:
-                        Console.WriteLine("{0, 15}\n", Notes[noteNumber].firstName);
-                        Console.WriteLine("{0, 15}\n", Notes[noteNumber].lastName);
-                        Console.WriteLine("{0, 15}\n", Notes[noteNumber].age);
-                        Console.WriteLine("{0, 15}\n", Notes[noteNumber].heiht);
-                        Console.WriteLine("{0, 15}\n", Notes[noteNumber].mathsScore);
-                        Console.WriteLine("{0, 15}\n", Notes[noteNumber].physicsScore);
-                        Console.WriteLine("{0, 15}\n", Notes[noteNumber].langScore);
-                        Console.WriteLine("{0:##.##, 15}\n", Notes[noteNumber].averageValue);
+                        Console.Write("Имя: {0, 25}\n", Notes[noteNumber].firstName);
+                        Console.Write("Фамилия: {0, 21}\n", Notes[noteNumber].lastName);
+                        Console.Write("Возраст: {0, 21}\n", Notes[noteNumber].age);
+                        Console.Write("Рост: {0, 24}\n", Notes[noteNumber].heiht);
+                        Console.Write("Баллы за математику: {0, 9}\n", Notes[noteNumber].mathsScore);
+                        Console.Write("Баллы за физику: {0, 13}\n", Notes[noteNumber].physicsScore);
+                        Console.Write("Баллы за язык: {0, 15}\n", Notes[noteNumber].langScore);
+                        Console.Write("Средний балл: {0:00.00}\n", Notes[noteNumber].averageValue);
                         break;
                     case 3:
-                        PrintTop();
-                        Console.WriteLine(Notes[noteNumber].ToString());
+                        PrintNotes(0, 0, noteNumber);
                         break;
                 }    
             }
@@ -100,19 +128,7 @@ namespace HomeWork_2
             }            
         }
 
-        /// <summary>
-        /// Метод для вывода всех записей
-        /// </summary>
-        /// <param name="n"></param>
-        public void PrintAllNotes()
-        {
-            Console.Clear();
 
-            PrintTop();
-            for (int i = 0; i < Notes.Count; i++)
-            {
-                Console.WriteLine(Notes[i].ToString());
-            }
-        }
+
     }
 }

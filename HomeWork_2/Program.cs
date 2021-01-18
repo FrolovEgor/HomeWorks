@@ -15,19 +15,28 @@ namespace HomeWork_2
 
             int MenuSelector;
 
-            do
+             do
             {
                 Console.Clear();
                 Console.Write("Меню управления записной книжкой. Для выполнения действия, введите его номер из списка\n" +
                                   "\n   Всего записей в базе: " + Book.GetNotesCount() +
                                   "\n\n   1. Создать новую запись" +
-                                  "\n   2. Напечатать информацию об одной записи без форматирования."+ 
+                                  "\n   2. Напечатать информацию об одной записи "+ 
                                   "\n   3. Напечатать все записи" +
                                   "\n   4. Напечатать все записи по центру экрана" +
                                   "\n   5. Выйти из программы" +
                                   "\n\nВаша выбор - ");
 
-                MenuSelector = int.Parse(Console.ReadLine());
+                try
+                {
+                    MenuSelector = int.Parse(Console.ReadLine());
+                }
+
+                catch {
+
+                    MenuSelector = 0;
+                }
+
                 switch (MenuSelector)
                 {
                     case 1:
@@ -39,11 +48,19 @@ namespace HomeWork_2
                         Console.ReadKey();
                         break;
                     case 3:
-                        Book.PrintAllNotes();
+                        //Book.PrintAllNotes();
+                        Book.PrintNotes(0, 0, -1);
+                        Console.ReadKey();
+                        break;
+                    case 4:
+
+                        int width = Console.WindowWidth;
+                        int height = Console.WindowHeight;
+                        Book.PrintNotes(width, height, -1);
                         Console.ReadKey();
                         break;
                 }
-
+                                
             } while (MenuSelector != 5);
            
 

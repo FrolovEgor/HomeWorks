@@ -87,15 +87,21 @@ namespace HomeWork_2
 
             //Расчет среднего бала студента
             averageValue = (mathsScore + physicsScore + langScore) / 3;
- 
+
         }
+
+
+        public string PrintTop()
+        {
+            return $"{"Имя",10}{"Фамилия",15}{"Возраст",10}{"Рост",8}{"Математика",12}{"Физика",10}{"Язык",8}{"Средний балл",14}";
+        }
+
         /// <summary>
         /// Метод вывода данных о студенте в консоль
         /// </summary>
         public override string ToString()
         {
-            
-            return ($"{firstName,15}{lastName,15}{age,15}{heiht,15}{mathsScore,15}{physicsScore,15}{langScore,15}{averageValue.ToString("##.##"),15}");
+            return ($"{firstName,10}{lastName,15}{age,10}{heiht,8}{mathsScore,12}{physicsScore,10}{langScore,8}{averageValue.ToString("##.##"),14}");
         }
     }
 }
