@@ -9,61 +9,89 @@ namespace HomeWork_2
     class Program
     {
        
-        static void Main(string[] args)
+        static void Menu(NoteBook Book)
         {
-            NoteBook Book = new NoteBook();
-
+            //Объявление переменной для ветвления внутри меню
             int MenuSelector;
 
-             do
+            //Цикл меню
+            do
             {
+                //Очистка консоли
                 Console.Clear();
+
+                //Печать текста меню
                 Console.Write("Меню управления записной книжкой. Для выполнения действия, введите его номер из списка\n" +
                                   "\n   Всего записей в базе: " + Book.GetNotesCount() +
                                   "\n\n   1. Создать новую запись" +
-                                  "\n   2. Напечатать информацию об одной записи "+ 
+                                  "\n   2. Напечатать информацию об одной записи " +
                                   "\n   3. Напечатать все записи" +
                                   "\n   4. Напечатать все записи по центру экрана" +
                                   "\n   5. Выйти из программы" +
                                   "\n\nВаша выбор - ");
 
+                //Обработка ошибок ввода в консоли
                 try
                 {
+                    //ввод команды от пользователя
                     MenuSelector = int.Parse(Console.ReadLine());
                 }
 
-                catch {
-
+                //Перезапуск меню при ошибке ввода
+                catch
+                {
                     MenuSelector = 0;
                 }
 
+                //Ветвление в зависимости от выбранных пунктов меню
                 switch (MenuSelector)
                 {
+                    //Создане новой записи
                     case 1:
                         Book.NewNote();
                         Console.ReadKey();
                         break;
+
+                    //Печать одной записи
                     case 2:
                         Book.PrintOneNote();
                         Console.ReadKey();
                         break;
+
+                    //Печать всех записей, без вывода по центру
                     case 3:
                         //Book.PrintAllNotes();
                         Book.PrintNotes(0, 0, -1);
                         Console.ReadKey();
                         break;
+
+                    //Печать всех записей с выводом по центру
                     case 4:
 
+                        //Получение размеров текущего окна консоли
                         int width = Console.WindowWidth;
                         int height = Console.WindowHeight;
+
+                        //Печать всех записей в центре
                         Book.PrintNotes(width, height, -1);
                         Console.ReadKey();
                         break;
                 }
-                                
-            } while (MenuSelector != 5);
-           
 
+            //Условие для завершения программы
+            } while (MenuSelector != 5);
+
+        }
+
+
+        static void Main(string[] args)
+        {
+            // Инициализация экзепляра класса NoteBook
+            NoteBook MyBook = new NoteBook();
+
+            //Вызов меню
+            Menu(MyBook);
+            
             #region Home Work Tasks
             // Заказчик просит написать программу «Записная книжка». Оплата фиксированная - $ 120.
 

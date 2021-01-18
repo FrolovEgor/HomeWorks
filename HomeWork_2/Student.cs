@@ -90,15 +90,20 @@ namespace HomeWork_2
 
         }
 
-
+        /// <summary>
+        /// Метод для печати шапки таблицы
+        /// </summary>
+        /// <returns>Возвращает строкой шапку вывода данных о студенте</returns>
         public string PrintTop()
         {
             return $"{"Имя",10}{"Фамилия",15}{"Возраст",10}{"Рост",8}{"Математика",12}{"Физика",10}{"Язык",8}{"Средний балл",14}";
         }
 
+         
         /// <summary>
-        /// Метод вывода данных о студенте в консоль
+        /// Метод вывода данных о студенте
         /// </summary>
+        /// <returns>Возвращает строкой данные о студенте</returns>
         public override string ToString()
         {
             return ($"{firstName,10}{lastName,15}{age,10}{heiht,8}{mathsScore,12}{physicsScore,10}{langScore,8}{averageValue.ToString("##.##"),14}");
