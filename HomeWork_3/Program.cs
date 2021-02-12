@@ -230,8 +230,18 @@ namespace HomeWork_3
                         Console.Write($"\nЧисло: {gameNumber}\nХод {playerName} :");
                         userTry = int.Parse(Console.ReadLine());
 
-                        //Проверка, что пользователь ввел число нужного диапазона
-                        if (userTry < 1 || userTry > 4) userTry = 1;
+                        //Проверка, что пользователь ввел число нужного диапазона, и повторный запрос в случаии неудачи
+                        do
+                        {
+                            if (userTry < 1 || userTry > 4)
+                            {
+                                Console.Write("\nТакой ход недопустим! введите правильно чило: ");
+                                userTry = int.Parse(Console.ReadLine());
+                            }
+                            else break;
+                            
+                        } while (true);
+
 
                         //Проверка, что число введеное пользователем не больше оставшегося для игры числа
                         if (userTry <= gameNumber) gameNumber -= userTry;
