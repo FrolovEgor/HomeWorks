@@ -16,41 +16,38 @@ namespace HomeWork_4_3_1
             int columns = int.Parse(Console.ReadLine());                    //Ввод числа столбцов
 
 
-            if (rows > 0 || columns > 0)
+            if (rows > 0 || columns > 0)                                    //Проверка корректности введенных данных
             {
+                int[,] matrix = new int[rows, columns];                     //Создание массива для хранения матрицы
 
-                int[,] matrix = new int[rows, columns];
+                Random randomizer = new Random();                           //Инициализация генератора псевдослучайных чисел
 
-                Random randomizer = new Random();
-
-                Console.WriteLine("Исходная матрица A:\n");
-                for (int i = 0; i < rows; i++)
+                Console.WriteLine("Исходная матрица A:\n");                 //Вывод шапки к сгенерированой матрице
+                for (int i = 0; i < rows; i++)                              //Цикл для перебора строк матрицы
                 {
-                    for (int j = 0; j < columns; j++)
+                    for (int j = 0; j < columns; j++)                       //Цикл для перебора столбцов матрицы
                     {
-                        matrix[i, j] = randomizer.Next(0, 101);
-                        Console.Write($"{matrix[i, j],5}");
+                        matrix[i, j] = randomizer.Next(0, 101);             //Заполнение матрицы случайными числами
+                        Console.Write($"{matrix[i, j],5}");                 //Вывод заполненного элемента
                     }
-                    Console.WriteLine();
+                    Console.WriteLine();                                    //Перевод каретки на следующую строку матрицы
                 }
-                Console.Write("\nВведите число, на которое нужно умножить матрицу A: ");
-                int multipleNumber = int.Parse(Console.ReadLine());
+                Console.Write("\nВведите число, на которое нужно умножить матрицу A: ");    //Запрос на ввод множителя матрицы
+                int multipleNumber = int.Parse(Console.ReadLine());                         //Ввод множителя
 
-                Console.WriteLine($"Матрица A умноженная на {multipleNumber} равна:\n");
+                Console.WriteLine($"Матрица A умноженная на {multipleNumber} равна:\n");    //Вывод шапки к результату решения
 
-                for (int i = 0; i < rows; i++)
+                for (int i = 0; i < rows; i++)                              //Цикл для перебора строк
                 {
-                    for (int j = 0; j < columns; j++)
+                    for (int j = 0; j < columns; j++)                       //Цикл ля перебора столбцов
                     {
-                        matrix[i, j] *= multipleNumber;
-                        Console.Write($"{matrix[i, j],5}");
+                        matrix[i, j] *= multipleNumber;                     //Умножение каждого элемента матрицы на число
+                        Console.Write($"{matrix[i, j],5}");                 //Вывод полученных элементов
                     }
-                    Console.WriteLine();
+                    Console.WriteLine();                                    //Перевод каретки на следующую строку матрицы
                 }
-
-
-            }
-            else Console.WriteLine("Вы ввели неправильные данные! попробуйте еще раз.");
+                            }
+            else Console.WriteLine("Вы ввели неправильные данные! попробуйте еще раз."); //Вывод сообщения в случаи неправильного ввода
             Console.ReadKey();
         }
     }
