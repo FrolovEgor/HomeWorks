@@ -10,29 +10,35 @@ namespace HomeWork_4_3_2
     {
         static void Main(string[] args)
         {
-            Console.Write("Введите число строк матриц: ");                  //Запрос на ввод числа строк матриц
-            int rows = int.Parse(Console.ReadLine());                       //Ввод числа строк матриц
-            Console.Write("Введите число столбцов матриц: ");               //Запрос на ввод числа столбцов матриц
-            int columns = int.Parse(Console.ReadLine());                    //Ввод числа столбцов матриц
+            Console.Write("Введите число строк матрицы A: ");               //Запрос на ввод числа строк матрицы А
+            int rowsA = int.Parse(Console.ReadLine());                      //Ввод числа строк матриц А
+            Console.Write("Введите число столбцов матрицы A: ");            //Запрос на ввод числа столбцов матриц B
+            int columnsA = int.Parse(Console.ReadLine());                   //Ввод числа столбцов матриц B
 
-            Console.WriteLine("Сгенерированная матрицы A и B:");            //Вывод шапки для матриц
+            Console.Write("Введите число строк матрицы B: ");               //Запрос на ввод числа строк матрицы А
+            int rowsB = int.Parse(Console.ReadLine());                      //Ввод числа строк матриц А
+            Console.Write("Введите число столбцов матрицы B: ");            //Запрос на ввод числа столбцов матриц B
+            int columnsB = int.Parse(Console.ReadLine());                   //Ввод числа столбцов матриц B
+
+            
 
             Random randomizer = new Random();                               //Инициализация генерации псевдослучайных чисел
 
-            int[,] matrixOne = new int[rows, columns];                      //Инициализация массива для матрицы A
-            int[,] matrixTwo = new int[rows, columns];                      //Инициализация массива для матрицы B
+            int[,] matrixOne = new int[rowsA, columnsA];                    //Инициализация массива для матрицы A
+            int[,] matrixTwo = new int[rowsB, columnsB];                    //Инициализация массива для матрицы B
 
-            if (rows == columns)                                            //Проверка правильности введенных данных
+            if (rowsA == rowsB && columnsA == columnsB)                     //Проверка правильности введенных данных
             {
-                for (int i = 0; i < rows; i++)                              //Цикл для перебора строк матриц A и B
+                Console.WriteLine("Сгенерированные матрицы A и B:");        //Вывод шапки для матриц
+                for (int i = 0; i < matrixOne.GetLength(0); i++)            //Цикл для перебора строк матриц A и B
                 {
-                    for (int j = 0; j < columns; j++)                       //Цикл для перебора столбцов матрицы A
+                    for (int j = 0; j < matrixOne.GetLength(1); j++)        //Цикл для перебора столбцов матрицы A
                     {
                         matrixOne[i, j] = randomizer.Next(-999, 1000);      //Заполнение элемента матрицы А(i,j) случайным числом
                         Console.Write($"{matrixOne[i, j],6}");              //Вывод элемента матрицы A(i,j)
                     }
                     Console.Write("     ");                                 //Пробел для разделения вывода матрицы A и B
-                    for (int j = 0; j < columns; j++)                       //Цикл для перебора строк матрицы B
+                    for (int j = 0; j < matrixTwo.GetLength(1); j++)        //Цикл для перебора строк матрицы B
                     {
                         matrixTwo[i, j] = randomizer.Next(-999, 1000);      //Заполнение элемента матрицы B(i,j) случайным числом
                         Console.Write($"{matrixTwo[i, j],6}");              //Вывод элемента матрицы B(i,j)
@@ -47,9 +53,9 @@ namespace HomeWork_4_3_2
                 switch (action)                                             //Ветвление в зависимости от введенного дествия
                 {
                     case "+":                                               //Ветка для сложения матриц
-                        for (int i = 0; i < rows; i++)                      //Цикл для перебора строк матриц A и B
+                        for (int i = 0; i < matrixOne.GetLength(0); i++)    //Цикл для перебора строк матриц A и B
                         {
-                            for (int j = 0; j < columns; j++)               //Цикл для перебора столбцов матриц A и B
+                            for (int j = 0; j < matrixOne.GetLength(1); j++)    //Цикл для перебора столбцов матриц A и B
                             {
                                 matrixOne[i, j] += matrixTwo[i, j];         //Прибавление к элементу A(i,j) элемента B(i,j)
                                 Console.Write($"{matrixOne[i, j],6}");      //Печать элемента A(i,j)
@@ -58,9 +64,9 @@ namespace HomeWork_4_3_2
                         }
                         break;
                     case "-":                                               //Ветка для вычитания матриц
-                        for (int i = 0; i < rows; i++)                      //Цикл для перебора строк матриц A и B
+                        for (int i = 0; i < matrixOne.GetLength(0); i++)    //Цикл для перебора строк матриц A и B
                         {
-                            for (int j = 0; j < columns; j++)               //Цикл для перебора столбцов матриц A и B
+                            for (int j = 0; j < matrixOne.GetLength(1); j++)    //Цикл для перебора столбцов матриц A и B
                             {
                                 matrixOne[i, j] -= matrixTwo[i, j];         //Вычитание из элемента A(i,j) элемента B(i,j)
                                 Console.Write($"{matrixOne[i, j],6}");      //Печать элемента A(i,j)
@@ -75,7 +81,7 @@ namespace HomeWork_4_3_2
             }
             else 
             {
-                Console.WriteLine("Матрицы должны быть квадратными для осуществления операций");    //Сообщение при неправильном вводе размера матриц
+                Console.WriteLine("Матрицы должны быть равны для осуществления операций");    //Сообщение при неправильном вводе размера матриц
             }
             Console.ReadKey();
         }
