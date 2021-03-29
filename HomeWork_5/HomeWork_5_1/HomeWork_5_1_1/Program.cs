@@ -113,7 +113,6 @@ namespace HomeWork_5_1_1
                 return false;
             }
         }
-
         static void Main(string[] args)
         {
             //Организация ввода параметров матрицы A
