@@ -18,7 +18,7 @@ namespace HomeWork_5_3
             char[] massCharFromString = originalString.ToLower().ToCharArray();     //Преобразование входной строчки в массив char
 
             int massLenth = massCharFromString.Length;          //Определение длинны входной строки
-            int verifiableLetter = 0, nextLetterCounter = 1;    //verifiableLetter-индекс проверяемой буквы; nextLetterCounter-индекс следующих за проверяемой одинаковых букв
+            int verifiableLetter = 0, nextLetterCounter = 1;    //verifiableLetter-индекс проверяемой буквы; nextLetterCounter-счетчик следующих за проверяемой одинаковых букв
             string result = null;                               //строковая переменная для хранения результата 
 
             while (true)                                        //Цикл для сравнения каждого символа со следующим
@@ -35,20 +35,20 @@ namespace HomeWork_5_3
                 }
                 else
                 {
-                    result += massCharFromString[verifiableLetter].ToString();      //Прибавление 
-                    verifiableLetter += nextLetterCounter;
-                    nextLetterCounter = 1;
+                    result += massCharFromString[verifiableLetter].ToString();      //Прибавление проверяемой буквы к результату
+                    verifiableLetter += nextLetterCounter;                          //Переход на следующую проверяемую букву
+                    nextLetterCounter = 1;                                          //Сброс счетчика сравнения одинаковых букв
                 }
             }
             return result;
         }
         static void Main(string[] args)
         {
-            string inpuntString = "Ххххоооорррооошшшиий деееннннь";
-            string result = ThrowSameLetters(inpuntString);
+            string inpuntString = "Ххххоооорррооошшшиий деееннннь";             //Задание произвольной строки
+            string result = ThrowSameLetters(inpuntString);                     //Вызов метода, удаляющего повторяющиеся символы
 
             Console.WriteLine("Введенная строка: {0}\n" +
-                "Без повторяющихся символов выглядит лучше: {1}", inpuntString, result);
+                "Без повторяющихся символов выглядит лучше: {1}", inpuntString, result);    //вывода исходной и преобразованной строки
             
             Console.ReadKey();
         }
