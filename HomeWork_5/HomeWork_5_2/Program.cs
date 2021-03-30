@@ -36,7 +36,6 @@ namespace HomeWork_5_2
                 return 0;
         }
     }
-
     class Program
     {
         /// <summary>
@@ -61,31 +60,26 @@ namespace HomeWork_5_2
                     count++;
                 }
             }
-            string[] result = new string[count];
-            Array.Copy(separeted, result, count);
+            string[] result = new string[count];                    //Создание массива строк для вывода результатов
+            Array.Copy(separeted, result, count);                   //Копирование нужного числа строк, удовлетворяющих результату в result
             return result;
         }
-
-       
+             
         static void Main(string[] args)
         {
-            string Test = Console.ReadLine();
+            Console.Write("Введите исходную строку: ");           //Запрос ввода
+            string Test = Console.ReadLine();                     //Ввод исходной строки
 
-            string[] result = GetWordFromString(Test, 0, 2);
-            
-            foreach(var word in result) 
-            {
-                Console.WriteLine(word);
-            }
+            string[] result = GetWordFromString(Test, 0, 1);     //Вызов метода для выделения одного наименьшего слова в строке
+            Console.Write("\nНаименьшее слово в строке: ");     
+            Console.Write($"{result[0]}");
 
-            Console.WriteLine();
-            result = GetWordFromString(Test, 1, 2);
-
+            result = GetWordFromString(Test, 1, 2);             //Вызов метода для выделения двух наибольших слов в строке
+            Console.Write("\nДва самое большое слово/слова в строке: ");
             foreach (var word in result)
             {
-                Console.WriteLine(word);
+                Console.Write($" {word}; ");
             }
-
             Console.ReadKey();
         }
     }
