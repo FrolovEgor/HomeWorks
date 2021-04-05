@@ -61,28 +61,28 @@ namespace HomeWork_5_5
 
         static void Main(string[] args)
         {
-            //Создание массива чисел
-            //int[] numbers = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17};
-            int[,] mass = new int[18, 5];
+            Console.WriteLine("При помощи рекурсии можно вычислить следующие значения функции аккермана:");
+            int[,] mass = new int[18, 5];               //Создание массива чисел для хранения вычисленных значений
 
-            for (int i = 0; i < 11; i++)
+            for (int i = 0; i < 11; i++)                //Цикл для перебора строк
+            {
+                for (int j = 0; j < 4; j++)             //Цикл для перебора столбцов
+                {
+                    mass[i, j] = akkermanFunction(j, i);    //Вызов и вычисление функции аккермана
+                    Console.Write($"{mass[i, j],15}");      //Вывод на экран
+                }
+                Console.WriteLine();                        //Перевод на новую строку
+            }
+
+            Console.WriteLine("\nПри помощи стека можно вычислить больше... (если есть время):");
+            for (int i = 0; i < 17; i++)
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    mass[i, j] = akkermanFunction(j, i);
-                    Console.Write($"{mass[i, j],15}");
+                    mass[i, j] = StackAkkerman(j, i);    //Вызов и вычисление функции аккермана
+                    Console.Write($"{mass[i, j],15}");   //Вывод на экран
                 }
-                Console.WriteLine();
-            }
-            Console.WriteLine();
-            for (int i = 0; i < 17; i++)
-            {
-                for (int j = 0; j < 5; j++)
-                {
-                    mass[i, j] = StackAkkerman(j, i);
-                    Console.Write($"{mass[i, j],15}");
-                }
-                Console.WriteLine();
+                Console.WriteLine();                     //Перевод на новую строку
             }
             Console.ReadKey();
         }
