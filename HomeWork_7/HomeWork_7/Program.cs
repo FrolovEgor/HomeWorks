@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace HomeWork_7
 {
@@ -14,13 +11,12 @@ namespace HomeWork_7
         {
             NoteBook note = new NoteBook();
 
-            note.AddNewNote();
+            note.LoadNotesFromFile();
 
-            note.AddInvoiceFile(0);
-
-            note.OpenInvoiceFile(0);
-
+            note.Sort();
             Console.ReadKey();
+            note.SaveNotesInFile();
+
         }
     }
 }
