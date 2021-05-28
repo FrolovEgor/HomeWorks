@@ -6,23 +6,23 @@ namespace HomeWork_7
     class PaymentNote
     {
         public PaymentNote(DateTime creationTime, DateTime invoiceDate, string accountNumber, string company, string description,
-                           string comment, string pathToInvoiceFile, double totalPayment, double nowPaid)
+                           double totalPayment, double nowPaid, string comment, string pathToInvoiceFile)
         {
             CreationTime = creationTime;
             InvoiceDate = invoiceDate;
             AccountNumber = accountNumber;
             Company = company;
             Description = description;
-            Comment = comment;
-            _pathToInvoiceFile = pathToInvoiceFile;
             _totalPayment = totalPayment;
             _nowPaid = nowPaid;
             _leaveToPay = _totalPayment - _nowPaid;
+            Comment = comment;
+            _pathToInvoiceFile = pathToInvoiceFile;
         }
 
         public PaymentNote(DateTime invoiceDate, string accountNumber, string company, string description,
-                   string comment,  double totalPayment, double nowPaid):this(DateTime.Now, invoiceDate,
-                       accountNumber, comment, description, comment, @"C:\", totalPayment, nowPaid)
+                    double totalPayment, double nowPaid, string comment) :  this(DateTime.Now, invoiceDate,
+                    accountNumber, company, description, totalPayment, nowPaid, comment, @"")
         {
 
         }
@@ -47,12 +47,19 @@ namespace HomeWork_7
             }
 
         }
+        public static string PrintTop()
+        {
+            return ($"{"1.Дата создания",15},{"2.Дата счета",15},{"3.Номер счета",15},{"4.Название компании",25}," +
+                    $"{"5.Назначение",20},{"6.Сумма счета",15},{"7.Оплачено",15},{"8.Неоплачено",15}," +
+                    $"{"9.Коментарий",20},{"10.Файл счета",20}");
+        }
+
         public override string ToString() 
         {
-            return $"{CreationTime.ToString(),15}, {InvoiceDate.ToString(),15}," +
-                                       $" {AccountNumber,15}, {Company,15}, {Description,15}, {Comment,15}," +
-                                       $" {_pathToInvoiceFile,15}, {_totalPayment.ToString(),15}," +
-                                       $"{_nowPaid.ToString(),15},{_leaveToPay.ToString(),15}";      
+            return $"{CreationTime.ToString("dd/MM/yyyy"),15},{InvoiceDate.ToString("dd/MM/yyyy"),15},{AccountNumber,15},{Company,25}," +
+                   $"{Description,20},{_totalPayment.ToString(),15},{_nowPaid.ToString(),15},{_leaveToPay.ToString(),15}," +
+                   $"{ Comment,20},{ _pathToInvoiceFile,20}";
+            
         }
 
         public DateTime CreationTime { get; }
@@ -60,15 +67,6 @@ namespace HomeWork_7
         public string Company { get; set; }
         public string AccountNumber { get; set; }
         public string Description { get; set; }
-        public string Comment { get; set; }
-        public string PathToInvoiceFile 
-        {
-            get 
-            {
-                return _pathToInvoiceFile;
-            } 
-                
-        }
         public double TotalPayment 
         { 
             get
@@ -97,6 +95,15 @@ namespace HomeWork_7
             {
                 return _leaveToPay;
             }
+        }
+        public string Comment { get; set; }
+        public string PathToInvoiceFile
+        {
+            get
+            {
+                return _pathToInvoiceFile;
+            }
+
         }
 
         private string _pathToInvoiceFile;

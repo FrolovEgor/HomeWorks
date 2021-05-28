@@ -28,42 +28,131 @@ namespace HomeWork_7
             }
         }
 
-        public string AddNewNote()
+        public string AddNewNote(params string[] noteFieldValues)
         {
-            Console.Write("Введите дату поступления счета: ");
-            DateTime invoiceDate = DateTime.Parse(Console.ReadLine());
-            Console.Write("Введите номер счета: ");
-            string accountNumber = Console.ReadLine();
-            Console.Write("Введите наименование компании: ");
-            string company = Console.ReadLine();
-            Console.Write("Введите описание счета: ");
-            string description = Console.ReadLine();
-            Console.Write("Комментарий: ");
-            string comment = Console.ReadLine();
-            Console.Write("Введите полную сумму счета: ");
-            double totalPayment = double.Parse(Console.ReadLine());
-            Console.Write("Сколько оплачено на данный момент: ");
-            double nowPaid = double.Parse(Console.ReadLine());
+            if (noteFieldValues.Length != 7)
+            {
+                return "Запись не добавлена, неверные аргументы";
+            }
 
-            _ListOfNotes.Add(new PaymentNote(invoiceDate, accountNumber, company, description, comment, totalPayment, nowPaid));
+            _ListOfNotes.Add(new PaymentNote(DateTime.Parse(noteFieldValues[0]), 
+                                             noteFieldValues[1],
+                                             noteFieldValues[2], 
+                                             noteFieldValues[3],
+                                             double.Parse(noteFieldValues[4]),
+                                             double.Parse(noteFieldValues[5]),
+                                             noteFieldValues[6]));
             return "Запись добавленна";
         }
 
-        public void AddInvoiceFile(int numberOfNote)
+
+        public string ChangeNote(int noteNumber, int field, string value) 
         {
-            _ListOfNotes[numberOfNote].AddInvoiceFile(GetPathWithDialog());
+            switch (field) 
+            {
+                case 2:
+                    _ListOfNotes[noteNumber].InvoiceDate = DateTime.Parse(value);
+                    break;
+                case 3:
+                    _ListOfNotes[noteNumber].AccountNumber = value;
+                    break;
+                case 4:
+                    _ListOfNotes[noteNumber].Company = value;
+                    break;
+                case 5:
+                    _ListOfNotes[noteNumber].Description = value;
+                    break;
+                case 6:
+                    _ListOfNotes[noteNumber].TotalPayment = double.Parse(value);
+                    break;
+                case 9:
+                    _ListOfNotes[noteNumber].Comment = value;
+                    break;
+                default:
+                    return "Данное поле нельзя изменить";
+            }
+            return "Запись изменена";
         }
-        public void OpenInvoiceFile(int numberOfNote)
+
+        public string AddNewPayment(int numberOfNote, double NewPaymentValue)
+        {
+            _ListOfNotes[numberOfNote].ChangePayment(NewPaymentValue);
+            return "Добавлено новая оплата";
+        }
+
+        public string AddInvoiceFile(int numberOfNote)
+        {
+            if (numberOfNote >= 0 && numberOfNote < _ListOfNotes.Count) 
+            {
+                _ListOfNotes[numberOfNote].AddInvoiceFile(GetPathWithDialog());
+                return "Счет прикреплен";
+            }
+            return "Такой записи не существует";
+        }
+        public string OpenInvoiceFile(int numberOfNote)
         {
             Process.Start(_ListOfNotes[numberOfNote].PathToInvoiceFile);
+            return "Счет открыт";
         }
 
-        public void AddNewPayment(int numberOfNote, int NewPaymentNumber)
+        public string DeleteNoteByNumber(int noteNumber) 
         {
-            _ListOfNotes[0].ChangePayment(NewPaymentNumber);
+            if (noteNumber >= 0 && noteNumber < _ListOfNotes.Count) 
+            {
+                _ListOfNotes.RemoveAt(noteNumber);
+                return $"Запись {noteNumber + 1} удалена";
+            }
+            return "Такой записи не существует";
+
         }
 
-        public void LoadNotesFromFile()
+        public string DeleteNoteByField(int fieldNumber, string fieldKey)
+        {
+            int numberOfdelitedFields = 0;
+
+            switch (fieldNumber)
+            {
+                case 1:
+                    numberOfdelitedFields = _ListOfNotes.RemoveAll(note => note.CreationTime == DateTime.Parse(fieldKey));
+                    break;
+                case 2:
+                    numberOfdelitedFields = _ListOfNotes.RemoveAll(note => note.InvoiceDate == DateTime.Parse(fieldKey));
+                    break;
+                case 3:
+                    numberOfdelitedFields = _ListOfNotes.RemoveAll(note => note.AccountNumber == fieldKey);
+                    break;
+                case 4:
+                    numberOfdelitedFields = _ListOfNotes.RemoveAll(note => note.Company == fieldKey);
+                    break;
+                case 5:
+                    numberOfdelitedFields = _ListOfNotes.RemoveAll(note => note.Description == fieldKey);
+                    break;
+                case 6:
+                    numberOfdelitedFields = _ListOfNotes.RemoveAll(note => note.TotalPayment == double.Parse(fieldKey));
+                    break;
+                case 7:
+                    numberOfdelitedFields = _ListOfNotes.RemoveAll(note => note.NowPaid == double.Parse(fieldKey));
+                    break;
+                case 8:
+                    numberOfdelitedFields = _ListOfNotes.RemoveAll(note => note.LeaveToPay == double.Parse(fieldKey));
+                    break;
+                case 9:
+                    numberOfdelitedFields = _ListOfNotes.RemoveAll(note => note.Comment == fieldKey);
+                    break;
+                case 10:
+                    numberOfdelitedFields = _ListOfNotes.RemoveAll(note => note.PathToInvoiceFile == fieldKey);
+                    break;
+                default:
+                    return "Записи не удалены. Неверно выбран номер поля";
+            }
+            if (numberOfdelitedFields <1 ) 
+            {
+                return $"Записи не удалены. Нет полей {fieldNumber} со значением {fieldKey}";
+            }
+            return $"Записи со значением {fieldKey} удалены. Количество удаленных записей {numberOfdelitedFields}";
+        }
+        
+        public string LoadNotesFromFile(DateTime sectionDateStart, DateTime sectionDateEnd)
         {
             using (var LoadFromFileStream = new StreamReader(GetPathWithDialog()))
             {
@@ -75,40 +164,67 @@ namespace HomeWork_7
                     string currentReadedeLine = LoadFromFileStream.ReadLine();
                     string[] parsedReadedLine = currentReadedeLine.Split(separator, StringSplitOptions.RemoveEmptyEntries);
 
-                    DateTime CreationTime = DateTime.Parse(parsedReadedLine[0]);
-                    DateTime invoiceDate = DateTime.Parse(parsedReadedLine[1]);
-                    string accountNumber = parsedReadedLine[2];
-                    string company = parsedReadedLine[3];
-                    string description = parsedReadedLine[4];
-                    string comment = parsedReadedLine[5];
-                    string pathToInvoiceFile = parsedReadedLine[6];
-                    double totalPayment = double.Parse(parsedReadedLine[7]);
-                    double nowPaid = double.Parse(parsedReadedLine[8]);
+                    DateTime currentNoteDate = DateTime.Parse(parsedReadedLine[0]);
+                    if (currentNoteDate > sectionDateStart && currentNoteDate < sectionDateEnd)
+                    {
 
-                    _ListOfNotes.Add(new PaymentNote(CreationTime, invoiceDate, accountNumber, company,
-                                     description, comment, pathToInvoiceFile, totalPayment, nowPaid));
+                        DateTime CreationTime = DateTime.Parse(parsedReadedLine[0]);
+                        DateTime invoiceDate = DateTime.Parse(parsedReadedLine[1]);
+                        string accountNumber = parsedReadedLine[2];
+                        string company = parsedReadedLine[3];
+                        string description = parsedReadedLine[4];
+                        double totalPayment = double.Parse(parsedReadedLine[5]);
+                        double nowPaid = double.Parse(parsedReadedLine[6]);
+                        string comment = parsedReadedLine[8];
+                        string pathToInvoiceFile = parsedReadedLine[9];
+
+                        _ListOfNotes.Add(new PaymentNote(CreationTime, invoiceDate, accountNumber, company,
+                                         description, totalPayment, nowPaid, comment, pathToInvoiceFile));
+                    }
                 }
             }
+            return "Записи загружены";
         }
-        public void SaveNotesInFile()
+        public string SaveNotesInFile()
         {
             if (!Directory.Exists($@".\..\..\DataBase\"))
             {
                 Directory.CreateDirectory($@".\..\..\DataBase\");
             }
 
-            using (var SaveFileStream = new StreamWriter($@".\..\..\DataBase\Base.CSV"))
+            using (var SaveFileStream = new StreamWriter($@".\..\..\DataBase\Base.csv"))
             {
-                for (int i = 0; i < _ListOfNotes.Count; i++)
+                SaveFileStream.WriteLine(PaymentNote.PrintTop());
+               for (int i = 0; i < _ListOfNotes.Count; i++)
                 {
                     SaveFileStream.WriteLine(_ListOfNotes[i].ToString());
                 }
             }
+            return "Записи сохранены";
         }
-        public void Sort() 
+        public string SortByField(int FieldToSort)
         {
-            _ListOfNotes.Sort(new NotesComaparereByCreationTime(2));
+            if (FieldToSort > 0 && FieldToSort < 11)
+            {
+                _ListOfNotes.Sort(new PaymentNoteComparers(FieldToSort));
+                return "Данные отсортированы";
+            }
+            return "Такой записи не существует";
         }
+        public string SortByField() 
+        {
+            return SortByField(0);
+        }
+        public void PrintAllNotes() 
+        {
+            int noteIndex = 1;
+            Console.WriteLine($"{"№", 5}"+PaymentNote.PrintTop());
+            foreach (PaymentNote note in _ListOfNotes) 
+            {
+                Console.WriteLine($"{noteIndex,5}"+note.ToString());
+                noteIndex += 1;
+            }
         
+        }
     }
 }
