@@ -1,0 +1,118 @@
+{
+  "BaseOfWorkers": [
+    {
+      "Worker_ID": 1,
+      "FirstName": "Олег",
+      "LastdName": "Тарасов",
+      "Age": 36,
+      "Department": "Контора",
+      "Salary": 15000
+    },
+    {
+      "Worker_ID": 2,
+      "FirstName": "Ольга",
+      "LastdName": "Васильева",
+      "Age": 30,
+      "Department": "Контора",
+      "Salary": 10000
+    },
+    {
+      "Worker_ID": 3,
+      "FirstName": "Татьяна",
+      "LastdName": "Рубежная",
+      "Age": 28,
+      "Department": "Контора",
+      "Salary": 9000
+    }
+  ],
+  "BaseOfDepartments": [
+    {
+      "BaseOfWorkers": [
+        {
+          "Worker_ID": 1,
+          "FirstName": "Дмитрий",
+          "LastdName": "Васильев",
+          "Age": 27,
+          "Department": "Контора_Васильев",
+          "Salary": 5000
+        },
+        {
+          "Worker_ID": 2,
+          "FirstName": "Тарас",
+          "LastdName": "Бульба",
+          "Age": 27,
+          "Department": "Контора_Васильев",
+          "Salary": 5000
+        },
+        {
+          "Worker_ID": 3,
+          "FirstName": "Руслан",
+          "LastdName": "Харитонов",
+          "Age": 29,
+          "Department": "Контора_Васильев",
+          "Salary": 5000
+        }
+      ],
+      "BaseOfDepartments": [
+        {
+          "BaseOfWorkers": [
+            {
+              "Worker_ID": 1,
+              "FirstName": "Олег",
+              "LastdName": "Тактаров",
+              "Age": 55,
+              "Department": "Контора_Васильев_Шамотин",
+              "Salary": 9000
+            }
+          ],
+          "BaseOfDepartments": [],
+          "DepartmentName": "Контора_Васильев_Шамотин",
+          "CreationTime": "29.04.2022 0:03:20"
+        }
+      ],
+      "DepartmentName": "Контора_Васильев",
+      "CreationTime": "20.04.2022 15:32:39"
+    },
+    {
+      "BaseOfWorkers": [
+        {
+          "Worker_ID": 2,
+          "FirstName": "Мария",
+          "LastdName": "Нефедова",
+          "Age": 24,
+          "Department": "Контора_Наливкин",
+          "Salary": 5600
+        },
+        {
+          "Worker_ID": 3,
+          "FirstName": "Мария",
+          "LastdName": "Георгиевская",
+          "Age": 32,
+          "Department": "Контора_Наливкин",
+          "Salary": 4000
+        },
+        {
+          "Worker_ID": 4,
+          "FirstName": "Нгану",
+          "LastdName": "Муфаса",
+          "Age": 35,
+          "Department": "Контора_Наливкин",
+          "Salary": 90
+        },
+        {
+          "Worker_ID": 1,
+          "FirstName": "Петр",
+          "LastdName": "Наливкин",
+          "Age": 35,
+          "Department": "Контора_Наливкин",
+          "Salary": 6500
+        }
+      ],
+      "BaseOfDepartments": [],
+      "DepartmentName": "Контора_Наливкин",
+      "CreationTime": "19.04.2022 15:32:39"
+    }
+  ],
+  "DepartmentName": "Контора",
+  "CreationTime": "20.04.2022 15:32:28"
+}
