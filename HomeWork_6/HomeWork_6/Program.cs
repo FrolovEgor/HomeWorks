@@ -43,11 +43,11 @@ namespace HomeWork_6
             FileInfo[] massAnswers = new FileInfo[countOfGroups];                       //Создание массива инфо о файлах с ответами, равное количеству групп
             StreamWriter[] writeMassAnswers = new StreamWriter[countOfGroups];          //Создание массива потоков для вывода групп в отдельные файлы
 
-            if (!Directory.Exists(@".\..\..\Answers")) Directory.CreateDirectory(@".\..\..\Answers");   //Создание папки с ответами, если ее не существует 
+            if (!Directory.Exists(@".\Answers")) Directory.CreateDirectory(@".\Answers");   //Создание папки с ответами, если ее не существует 
 
             for (int i = 0; i < countOfGroups; i++)     //Заполнение массивов инфо о файлах и массива потоков вывода
             {
-                massAnswers[i] = new FileInfo($@".\..\..\Answers\Answer{i + 1}.txt");
+                massAnswers[i] = new FileInfo($@".\Answers\Answer{i + 1}.txt");
                 writeMassAnswers[i] = new StreamWriter(massAnswers[i].FullName);
             }
 
@@ -210,15 +210,15 @@ namespace HomeWork_6
                         Console.ReadKey();
                         break;
                     case 3:                 //Вызов метода архивации данных
-                        Console.WriteLine(ArchiveFiles(@".\..\..\Answers"));
+                        Console.WriteLine(ArchiveFiles(@".\Answers"));
                         Console.ReadKey();
                         break;
                     case 4:                 //Вызов метода для разархивации данных
-                        Console.WriteLine(UnArchiveFiles(@".\..\..\Answers"));
+                        Console.WriteLine(UnArchiveFiles(@".\Answers"));
                         Console.ReadKey();
                         break;
                     case 5:                 //Вызов метода для удаленния данных 
-                        Console.WriteLine(DeleteAnswers(@".\..\..\Answers"));
+                        Console.WriteLine(DeleteAnswers(@".\Answers"));
                         Console.ReadKey();
                         break;
                     case 6:                 //Выход из меню
@@ -230,7 +230,7 @@ namespace HomeWork_6
 
         static void Main(string[] args)
         {
-            string pathToFile = @".\..\..\test_n.txt";
+            string pathToFile = @".\test_n.txt";
             mainMenu(pathToFile);
         }
     }

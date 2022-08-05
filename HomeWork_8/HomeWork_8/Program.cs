@@ -6,17 +6,61 @@ namespace HomeWork_8
     class Program
     {
 
+        static int Fu(int N) 
+        {
+
+            for (int i=2; i <= N/2; i++)           
+            {
+                if (N % i == 0) return 0;
+            }
+            return 1;
+        }
+
         [STAThread]
         static void Main(string[] args)
         {
-            //Объявление базового департамента со стандартным именем
-            Department department = new Department("Организация"); ;
+            //DateTime YY = DateTime.Now;
+            //int Nt = 0;
+            
+            //for (int i = 2; i < 250001; i++) 
+            //{   
+            //    Nt += Fu(i);
+            //}
 
-            //Флаг входа (для выхода из программы при любой вложенности)
-            bool exit = false;
+            //Console.WriteLine(Nt);
+            
+            //TimeSpan OO = DateTime.Now - YY;
+            //Console.WriteLine(OO);
+            //Console.ReadKey();
 
-            //Вызов меню для базового департамента
-            new Menu(department).StartMenu(true, out exit);
+
+
+            List<Worker> workers = new List<Worker>();
+
+            for (int i = 0; i < 15; i++) 
+            {
+                workers.Add(new Worker(i+10, "dep","ss",99,"afsaf",10000));
+                Console.WriteLine(workers[i].ToString());
+            }
+            int index = 14;
+            int index2 = workers.FindIndex(x => x.Worker_ID == index);
+
+            Console.WriteLine(index2);
+
+            Console.ReadKey();
+
+
+
+            ////Объявление базового департамента со стандартным именем
+            //Department department = new Department("Организация"); ;
+
+            ////Флаг входа (для выхода из программы при любой вложенности)
+            //bool exit = false;
+
+            ////Вызов меню для базового департамента
+            //new Menu(department).StartMenu(true, out exit);
+
+
         }
     }
 }

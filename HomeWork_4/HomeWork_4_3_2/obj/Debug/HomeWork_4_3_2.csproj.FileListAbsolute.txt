@@ -1,7 +1,0 @@
-D:\Учеба\SkillBox\HomeWork_4\HomeWork_4_3_2\bin\Debug\HomeWork_4_3_2.exe.config
-D:\Учеба\SkillBox\HomeWork_4\HomeWork_4_3_2\bin\Debug\HomeWork_4_3_2.exe
-D:\Учеба\SkillBox\HomeWork_4\HomeWork_4_3_2\bin\Debug\HomeWork_4_3_2.pdb
-D:\Учеба\SkillBox\HomeWork_4\HomeWork_4_3_2\obj\Debug\HomeWork_4_3_2.csprojAssemblyReference.cache
-D:\Учеба\SkillBox\HomeWork_4\HomeWork_4_3_2\obj\Debug\HomeWork_4_3_2.csproj.CoreCompileInputs.cache
-D:\Учеба\SkillBox\HomeWork_4\HomeWork_4_3_2\obj\Debug\HomeWork_4_3_2.exe
-D:\Учеба\SkillBox\HomeWork_4\HomeWork_4_3_2\obj\Debug\HomeWork_4_3_2.pdb

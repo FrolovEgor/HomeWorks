@@ -94,6 +94,8 @@ namespace HomeWork_7
         {
             Console.Clear();
 
+            
+
             string[] NoteValues = new string[7];                //Создание массива для хранения значений введеных пользователем
 
             Console.Write("Введите дату поступления счета: ");
@@ -322,6 +324,6 @@ namespace HomeWork_7
 
         #region Поля
         private NoteBook _note;
-        #endregion
-    }
+    #endregion
+}
 }

@@ -66,7 +66,7 @@ namespace HomeWork_5_5
 
             for (int i = 0; i < 11; i++)                //Цикл для перебора строк
             {
-                for (int j = 0; j < 4; j++)             //Цикл для перебора столбцов
+                for (int j = 0; j < 5; j++)             //Цикл для перебора столбцов
                 {
                     mass[i, j] = akkermanFunction(j, i);    //Вызов и вычисление функции аккермана
                     Console.Write($"{mass[i, j],15}");      //Вывод на экран
@@ -77,7 +77,7 @@ namespace HomeWork_5_5
             Console.WriteLine("\nПри помощи стека можно вычислить больше... (если есть время):");
             for (int i = 0; i < 17; i++)
             {
-                for (int j = 0; j < 4; j++)
+                for (int j = 0; j < 5; j++)
                 {
                     mass[i, j] = StackAkkerman(j, i);    //Вызов и вычисление функции аккермана
                     Console.Write($"{mass[i, j],15}");   //Вывод на экран

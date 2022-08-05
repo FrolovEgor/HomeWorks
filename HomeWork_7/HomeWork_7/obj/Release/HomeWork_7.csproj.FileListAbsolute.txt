@@ -1,7 +1,0 @@
-D:\Учеба\SkillBox\HomeWork_7\HomeWork_7\bin\Release\HomeWork_7.exe.config
-D:\Учеба\SkillBox\HomeWork_7\HomeWork_7\bin\Release\HomeWork_7.exe
-D:\Учеба\SkillBox\HomeWork_7\HomeWork_7\bin\Release\HomeWork_7.pdb
-D:\Учеба\SkillBox\HomeWork_7\HomeWork_7\obj\Release\HomeWork_7.csprojAssemblyReference.cache
-D:\Учеба\SkillBox\HomeWork_7\HomeWork_7\obj\Release\HomeWork_7.csproj.CoreCompileInputs.cache
-D:\Учеба\SkillBox\HomeWork_7\HomeWork_7\obj\Release\HomeWork_7.exe
-D:\Учеба\SkillBox\HomeWork_7\HomeWork_7\obj\Release\HomeWork_7.pdb
