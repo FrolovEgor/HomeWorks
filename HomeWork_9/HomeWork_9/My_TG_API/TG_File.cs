@@ -6,6 +6,7 @@ using System.IO;
 using System.Net;
 using HomeWork_9.BotLogic.MessageLogic;
 using HomeWork_9.BotLogic.DataBase;
+using HomeWork_9.BotLogic.Interface;
 
 namespace HomeWork_9.My_TG_API
 {
@@ -60,16 +61,19 @@ namespace HomeWork_9.My_TG_API
             {
                 //get content from diferent keys proceeding from file type
                 case 0:
+                    MessageType = IMessage.MsType.File;
                     DocumentContent = message["document"];
                     file_name = DocumentContent.Value<string>("file_name");
                     Extention = new FileInfo(@$"{file_name}").Extension;
                     break;
                 case 1:
+                    MessageType = IMessage.MsType.Audio;
                     DocumentContent = message["voice"];
                     file_name = $"{ DateTime.Now.ToString().Replace(":", "_").Replace(".", "_")}.ogg";
                     Extention = ".ogg";
                     break;
                 case 2:
+                    MessageType = IMessage.MsType.Photo;
                     var PhotoArray = message["photo"].ToArray<JToken>();
                     DocumentContent = PhotoArray[PhotoArray.Length - 1];
                     file_name = DocumentContent.Value<string>("file_unique_id") + ".jpg";

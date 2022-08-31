@@ -1,10 +1,11 @@
-﻿#define DEBUG
-//#undef DEBUG
+﻿//#define DEBUG
+#undef DEBUG
 
 using System;
 using System.IO;
 using System.Text;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Net;
 using System.Linq;
 using System.Net.Http;
@@ -12,6 +13,8 @@ using System.Threading;
 using Newtonsoft.Json.Linq;
 using HomeWork_9.BotLogic.Interface;
 using HomeWork_9.BotLogic.DataBase;
+using System.Threading.Tasks;
+//using Telegram.Bot.Types;
 
 namespace HomeWork_9.My_TG_API
 {
@@ -41,6 +44,12 @@ namespace HomeWork_9.My_TG_API
         /// URL of Teleram API with bot token for download files from telegram
         /// </summary>
         private string FileURL;
+
+        private WPFSyncronize _WPFData;
+
+        public ObservableCollection<TG_MessageLog> LoggingMessages;
+        
+        
         #endregion
 
         /// <summary>
@@ -54,17 +63,25 @@ namespace HomeWork_9.My_TG_API
             UpdateID = 0;
             ClientDataBase = new JsonDataBase();
             TGClient = new WebClient();
+            _WPFData = new WPFSyncronize();
+            LoggingMessages = new ObservableCollection<TG_MessageLog>();
         }
         #region Methods
         /// <summary>
-        /// Start bot. Infinite loop of getting updates and answer to them
+        /// Starting bot. Deserelizing DataBase of bot paramets and start async infinite loop of dialog with API
         /// </summary>
-        public void Start()
+        public async void Start()
         {
             //Read DataBase from Json's on drive
             ClientDataBase.Deserelize();
 
-            //Start of main loop
+            await Task.Run(() => MainLoop());        
+        }
+        /// <summary>
+        /// Infinite loop of getting updates and answer to them in "Auto" Mode and send messages from UI in manual
+        /// </summary>
+        private void MainLoop() 
+        {
             while (true)
             {
                 var updates = TGClient.DownloadString($"{URL}GetUpdates?offset={UpdateID}");
@@ -81,19 +98,70 @@ namespace HomeWork_9.My_TG_API
                     List<string> AnswersToMessage = new List<string>();
                     if (ParsedMessage != null)
                     {
+                        LoggingMessages.Add(new TG_MessageLog(ParsedMessage));
                         AnswersToMessage = ParsedMessage.GetAnswer(ClientDataBase);
                     }
 #if DEBUG
                     Console.WriteLine(message);
 #endif
-                    foreach (string Answer in AnswersToMessage)
-                    {
-                        string Asns = TGClient.DownloadString($"{URL}{Answer}");
+                    //Used for safe use of data that can be changed from UI
+                    //Cheking Mode of bot and send internal logic genegated messages if mode is not Manual
+                    lock (_WPFData) 
+                    { 
+                        if (!_WPFData.ManualMode) 
+                        {
+                            foreach (string Answer in AnswersToMessage)
+                            {
+                                string Asns = TGClient.DownloadString($"{URL}{Answer}");
 #if DEBUG
-                        Console.WriteLine(Asns);
+                                Console.WriteLine(Asns);
 #endif
+                            }
+                        }
+
                     }
+
                     Thread.Sleep(1000);
+                }
+
+                //Used for safe use of data that can be changed from UI
+                //Cheking Mode of bot and send manual messages from UI if mode is Manual and there are messages to send
+                lock (_WPFData) 
+                {
+                    if (_WPFData.ManualMode && _WPFData.IsManualAnswer)
+                    {
+                        string Asns = TGClient.DownloadString($"{URL}sendMessage?chat_id={_WPFData.ID}&text={_WPFData.Message}");
+                        _WPFData.IsManualAnswer = false;
+                    }
+                }
+            }
+        }
+        /// <summary>
+        /// Changing mode bot mode on manual
+        /// </summary>
+        /// <param name="ManualOn">True to switch on "Manual" mode, False to switch off
+        public void TurnOnManualMode(bool ManualOn)
+        {
+            lock (_WPFData)
+            {
+                _WPFData.ManualMode = ManualOn;
+            }
+        }
+        /// <summary>
+        /// Sending Manual messages from Bot to selected user
+        /// </summary>
+        /// <param name="UserID">ID of user who you want send message</param>
+        /// <param name="Message">Text of sending message</param>
+        public void SendManualMessage(long UserID, string Message) 
+        {
+            lock (_WPFData)
+            {
+                _WPFData.IsManualAnswer = true;
+
+                if (_WPFData.ManualMode)
+                {
+                    _WPFData.ID = UserID.ToString();
+                    _WPFData.Message = Message;
                 }
             }
         }

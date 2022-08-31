@@ -43,7 +43,9 @@ namespace HomeWork_9.BotLogic.Interface
             adminCMD = 0x2,
             userCMD = 0x3,
             Stiker = 0x4,
-            File = 0x5
+            File = 0x5,
+            Audio = 0x6,
+            Photo = 0x7
         }
         /// <summary>
         /// Trasform bot answer from standart bot <see cref="LogicAnswer"/> to <see cref="string"/> format that will be send to API

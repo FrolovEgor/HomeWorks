@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using HomeWork_9.My_TG_API;
 using Telegram.Bot;
 
@@ -14,7 +15,9 @@ namespace HomeWork_9
             string Token = File.ReadAllText(@"./../../../Token.txt");
             TG_Client Client = new TG_Client(Token);
             Client.Start();
+                       
 
+            Console.ReadKey();
         }
     }
 }
