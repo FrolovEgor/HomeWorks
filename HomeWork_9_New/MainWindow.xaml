@@ -1,0 +1,291 @@
+﻿ <Window x:Class="HomeWork_9_New.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HomeWork_9_New"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="MainWindow" 
+        Height="600" 
+        Width="800"
+        FontFamily="Poppins" 
+        WindowStartupLocation="CenterScreen"
+        WindowStyle = "None"
+        ResizeMode="NoResize">
+        
+     
+    <Window.Resources>
+
+        <sys:String x:Key="ReversalText">Initial Text</sys:String>
+
+
+        <!-- Colors -->
+        <SolidColorBrush x:Key="PrimaryGreen" Color="#007439"/>
+        <SolidColorBrush x:Key="SecondaryGreen" Color="#62D99C"/>
+        <SolidColorBrush x:Key="ThirdGreen" Color="#AAF0D1"/>
+
+        <SolidColorBrush x:Key="PrimaryTextColor" Color="#1F2A1D"/>
+        <SolidColorBrush x:Key="SecondaryTextColor" Color="#396060"/>
+        <SolidColorBrush x:Key="ThirdTextColor" Color="#E5E9D8"/>
+
+        <!-- Start:TabItem Style -->
+        <Style x:Key="TabStyle" TargetType="TabItem">
+            <Setter Property="Background" Value="{DynamicResource SecondaryGreen}"/>
+            <Setter Property="Foreground" Value="{DynamicResource SecondaryTextColor}"/>
+            <Setter Property="Margin" Value="5 5 5 5"/>
+            <Setter Property="Padding" Value="0 0 0 0"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource ThirdGreen}"/>
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontFamily" Value="Century Gothic"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Border CornerRadius="10" 
+                                Height="40"
+                                Background="{TemplateBinding Background}"
+                                Margin="{TemplateBinding Margin}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              ContentSource="Header"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource PrimaryGreen}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource ThirdTextColor}"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource PrimaryGreen}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource PrimaryTextColor}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!-- End: TabItemStyle -->
+
+        <Style x:Key="TabControlSyle" TargetType="TabControl">
+            <Setter Property="Background" Value="{DynamicResource ThirdGreen}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+
+        <Style x:Key="GridStyle" TargetType="Grid">
+            <Setter Property="Background" Value="{DynamicResource ThirdGreen}"/>
+        </Style>
+
+        <Style x:Key="InputBoxStyle" TargetType="TextBox">
+            <Setter Property="Foreground" Value="{DynamicResource SecondaryTextColor}"/>
+            <Setter Property="Width" Value="650"/>
+            <Setter Property="Margin" Value="5 5 5 5"/>
+            <Setter Property="Padding" Value="0 0 0 0"/>
+            <Setter Property="Height" Value="80"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Margin" Value="5 0 0 0"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property ="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border CornerRadius="10"
+                                Background="{DynamicResource SecondaryGreen}"
+                                BorderBrush="Black"
+                                BorderThickness="1">
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                          Margin="5 0 0 0"
+                                          Background="Transparent"
+                                          BorderBrush="Transparent"
+                                          VerticalAlignment="Center"
+                                          Foreground="{TemplateBinding Foreground}"
+                                          Padding="{TemplateBinding Padding}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="EvaluateButtonStyle" TargetType ="Button">
+            <Setter Property="Background" Value="{DynamicResource SecondaryGreen}"/>
+            <Setter Property="Foreground" Value="{DynamicResource PrimaryTextColor}"/>
+            <Setter Property="Margin" Value="5 5 5 5"/>
+            <Setter Property="Padding" Value="0 0 0 0"/>
+            <Setter Property="Height" Value="80"/>
+            <Setter Property="Width" Value="125"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="10"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="Black"
+                                BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Content="{TemplateBinding Content}"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource PrimaryGreen}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource ThirdTextColor}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource PrimaryGreen}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource PrimaryTextColor}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ListVievStyle" TargetType="ListView">
+            <Setter Property="IsManipulationEnabled" Value="False"/>
+            <Setter Property="FontFamily" Value="Century Gothic"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListView">
+                        <Border Background="{DynamicResource SecondaryGreen}"
+                                BorderBrush="Black" 
+                                BorderThickness="1" 
+                                CornerRadius="10">
+                            <ScrollViewer Focusable="False"
+                                          Padding="{TemplateBinding Padding}">
+                                <ItemsPresenter/>
+                                
+                            </ScrollViewer>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Margin" Value="5"/>
+                        <Setter Property="Padding" Value="5"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Setter Property="Background" Value="{DynamicResource ThirdGreen}"/>
+                        <Setter Property="Foreground" Value="{DynamicResource PrimaryTextColor}"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListViewItem">
+                                    <Border Background="{DynamicResource ThirdGreen}"
+                                            BorderBrush="Black"
+                                            BorderThickness="1" 
+                                            Height="30"
+                                            CornerRadius="10">
+                                        <ContentPresenter
+                                            Margin="10 0 0 0"
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Center" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="LabelStyle" TargetType="Label">
+            <Setter Property="FontFamily" Value="Century Gothic"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Label">
+                        <Border Background="{DynamicResource SecondaryGreen}"
+                                BorderBrush="Black"
+                                BorderThickness="1"
+                                CornerRadius="10"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch">
+                            <!--<ContentPresenter
+                                Margin="10 10 0 0"/>-->
+                            <TextBlock
+                                TextWrapping="Wrap"
+                                Margin="10 10 0 0"
+                                Text="{TemplateBinding Content}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Style="{DynamicResource GridStyle}">
+        <TabControl Style="{DynamicResource TabControlStyle}"
+                    Padding="-1">
+            <TabItem Header="Разделение слов" Style="{DynamicResource TabStyle}">
+                <Grid Style="{DynamicResource GridStyle}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBox Style="{DynamicResource InputBoxStyle}"
+                             x:Name="InputField_Devide"
+                             Grid.Row="0"
+                             Text="Введитее предложение"
+                             KeyDown="Split_Button_enter" TextChanged="InputField_Devide_TextChanged"/>
+                    <Button Style="{DynamicResource EvaluateButtonStyle}"
+                            Grid.Row="0"
+                            Content="Разделить" 
+                            Click="Split_Button_press"/>
+                    <ListView Style="{DynamicResource ListVievStyle}"
+                              x:Name="VievSplitedList"
+                              Grid.Row="1"
+                              Margin="5"/>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Реверс предложения" Style="{DynamicResource TabStyle}">
+                <Grid Style="{DynamicResource GridStyle}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBox Style="{DynamicResource InputBoxStyle}"
+                             x:Name="InputField_Reverse"
+                             Grid.Row="0"
+                             Text="Введитее предложение"/>
+                    <Button Style="{DynamicResource EvaluateButtonStyle}"
+                            Grid.Row="0"
+                            Content="Перевернуть" 
+                            Click="Reverse_Button_press"/>
+                    <Label Style="{DynamicResource LabelStyle}"
+                           x:Name="ReverseTextLabel"
+                           Grid.Row="1"
+                           Margin="5"
+                           Content="{DynamicResource ReversalText}"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Button HorizontalAlignment="Right" 
+                Margin="0,5,5,0" 
+                VerticalAlignment="Top"
+                Background="Transparent"
+                BorderBrush="Transparent"
+                Click="Button_Click">
+            <Button.Content>
+                <Grid>
+                    <Image Source="Resources/free-icon-close-6276642.png"
+                            Height="40"
+                            Width="40"/>
+                </Grid>
+            </Button.Content>
+        </Button>
+    </Grid>
+</Window>
