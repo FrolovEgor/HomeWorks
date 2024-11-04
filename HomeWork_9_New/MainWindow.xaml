@@ -17,18 +17,19 @@
      
     <Window.Resources>
 
-        <sys:String x:Key="ReversalText">Initial Text</sys:String>
+        <sys:String x:Key="ReversalText">Initial text</sys:String>
 
 
         <!-- Colors -->
-        <SolidColorBrush x:Key="PrimaryGreen" Color="#007439"/>
-        <SolidColorBrush x:Key="SecondaryGreen" Color="#62D99C"/>
-        <SolidColorBrush x:Key="ThirdGreen" Color="#AAF0D1"/>
+        <SolidColorBrush x:Key="PrimaryGreen" Color="#DD80CC"/>
+        <SolidColorBrush x:Key="SecondaryGreen" Color="#E6A8D7"/>
+        <SolidColorBrush x:Key="ThirdGreen" Color="#FADADD"/>
 
         <SolidColorBrush x:Key="PrimaryTextColor" Color="#1F2A1D"/>
         <SolidColorBrush x:Key="SecondaryTextColor" Color="#396060"/>
         <SolidColorBrush x:Key="ThirdTextColor" Color="#E5E9D8"/>
 
+        
         <!-- Start:TabItem Style -->
         <Style x:Key="TabStyle" TargetType="TabItem">
             <Setter Property="Background" Value="{DynamicResource SecondaryGreen}"/>
@@ -68,8 +69,10 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <!-- End: TabItemStyle -->
-
+        <!-- End: TabItem Style -->
+        
+        
+        <!-- Start:TabControl Style -->
         <Style x:Key="TabControlSyle" TargetType="TabControl">
             <Setter Property="Background" Value="{DynamicResource ThirdGreen}"/>
             <Setter Property="BorderThickness" Value="0"/>
@@ -88,6 +91,8 @@
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="Margin" Value="5 0 0 0"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
+            <EventSetter Event="GotFocus" Handler="InputField_FirstClear"/>
+            <EventSetter Event="KeyDown" Handler="InputField_PressedEnter"/>
             <Setter Property ="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBox">
@@ -107,7 +112,10 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <!-- End: TabControl Style -->
 
+        
+        <!-- Start:Button Style -->
         <Style x:Key="EvaluateButtonStyle" TargetType ="Button">
             <Setter Property="Background" Value="{DynamicResource SecondaryGreen}"/>
             <Setter Property="Foreground" Value="{DynamicResource PrimaryTextColor}"/>
@@ -142,7 +150,9 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <!-- End: Button Style -->
 
+        <!-- Start:ListView Style -->
         <Style x:Key="ListVievStyle" TargetType="ListView">
             <Setter Property="IsManipulationEnabled" Value="False"/>
             <Setter Property="FontFamily" Value="Century Gothic"/>
@@ -197,7 +207,10 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <!-- End: ListView Style -->
 
+
+        <!-- Start:Label Style -->
         <Style x:Key="LabelStyle" TargetType="Label">
             <Setter Property="FontFamily" Value="Century Gothic"/>
             <Setter Property="FontSize" Value="16"/>
@@ -213,8 +226,6 @@
                                 CornerRadius="10"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch">
-                            <!--<ContentPresenter
-                                Margin="10 10 0 0"/>-->
                             <TextBlock
                                 TextWrapping="Wrap"
                                 Margin="10 10 0 0"
@@ -224,12 +235,17 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <!-- End: Label Style -->
     </Window.Resources>
 
+     
     <Grid Style="{DynamicResource GridStyle}">
-        <TabControl Style="{DynamicResource TabControlStyle}"
+        <TabControl x:Name="TabSelector"
+                    Style="{DynamicResource TabControlStyle}"
                     Padding="-1">
-            <TabItem Header="Разделение слов" Style="{DynamicResource TabStyle}">
+            
+            <!--Tab Item for text split -->
+            <TabItem Header="Разделение слов" Style="{DynamicResource TabStyle}" TabIndex="0">
                 <Grid Style="{DynamicResource GridStyle}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="100"/>
@@ -238,8 +254,7 @@
                     <TextBox Style="{DynamicResource InputBoxStyle}"
                              x:Name="InputField_Devide"
                              Grid.Row="0"
-                             Text="Введитее предложение"
-                             KeyDown="Split_Button_enter" TextChanged="InputField_Devide_TextChanged"/>
+                             Text="Введитее предложение"/>
                     <Button Style="{DynamicResource EvaluateButtonStyle}"
                             Grid.Row="0"
                             Content="Разделить" 
@@ -251,7 +266,8 @@
                 </Grid>
             </TabItem>
 
-            <TabItem Header="Реверс предложения" Style="{DynamicResource TabStyle}">
+            <!--Tab Item for text Reverse -->
+            <TabItem Header="Реверс предложения" Style="{DynamicResource TabStyle}" TabIndex="1">
                 <Grid Style="{DynamicResource GridStyle}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="100"/>
@@ -273,6 +289,8 @@
                 </Grid>
             </TabItem>
         </TabControl>
+        
+        <!--Close button-->
         <Button HorizontalAlignment="Right" 
                 Margin="0,5,5,0" 
                 VerticalAlignment="Top"
@@ -287,5 +305,6 @@
                 </Grid>
             </Button.Content>
         </Button>
+        
     </Grid>
 </Window>
